@@ -24,6 +24,12 @@
 @import firebase_messaging;
 #endif
 
+#if __has_include(<flutter_credit_card/FlutterCreditCardPlugin.h>)
+#import <flutter_credit_card/FlutterCreditCardPlugin.h>
+#else
+@import flutter_credit_card;
+#endif
+
 #if __has_include(<image_pickers/ImagePickersPlugin.h>)
 #import <image_pickers/ImagePickersPlugin.h>
 #else
@@ -60,6 +66,7 @@
   [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
+  [FlutterCreditCardPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterCreditCardPlugin"]];
   [ImagePickersPlugin registerWithRegistrar:[registry registrarForPlugin:@"ImagePickersPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];

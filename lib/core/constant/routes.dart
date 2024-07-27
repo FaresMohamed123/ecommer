@@ -12,6 +12,11 @@ class AppRoute {
   static const String checkemail = "/checkemail";
   static const String verfiyCodeSignUp = "/verfiycodesignup";
   // Home
+  static const String productdetallis = "/productdetallis";
   static const String homepage = "/homepage";
-    static const String testView = "/testView";
+  static const String testView = "/testView";
+  static const String itemspage = "/itemspage";
+  static const String cart = "/cart";
+  static const String homescreen = "/homescreen";
+  static const String myfavroite = "/myfavroite";
 }

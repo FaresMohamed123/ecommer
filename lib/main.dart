@@ -20,15 +20,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         translations: MyTranslation(),
+
         locale: controller.language,
         debugShowCheckedModeBanner: false,
         theme: controller.appTheme,
-       initialRoute: AppRoute.splashView,
-     // home:TestView(),
-      //initialRoute: AppRoute.login,
+       initialRoute: AppRoute.homescreen,
       initialBinding: InitialBindings(),
         getPages: getPagess);
   }
-}
+}     
  
- //61
+ //114
+ //bac 108

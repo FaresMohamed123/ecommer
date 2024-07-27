@@ -1,7 +1,7 @@
-import 'package:ecommerces_app/core/class/statusrequest.dart';
-import 'package:ecommerces_app/core/functions/handingdatacontroller.dart';
-import 'package:ecommerces_app/core/services/services.dart';
-import 'package:ecommerces_app/data/datasource/remote/auth/login.dart';
+import '/core/class/statusrequest.dart';
+import '/core/functions/handingdatacontroller.dart';
+import '/core/services/services.dart';
+import '/data/datasource/remote/auth/login.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,16 +41,16 @@ class LoginControllerImp extends LoginController {
       print("=============================== Controller $response");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
-        if (email.text == "fares@gmail.com"||password.text=="123456") {//response['status']=="success"
-         // data.addAll(response['data']);
-          // myServices.sharedPreferences
-          //     .setString("id", response['data']['users_id']);
-          // myServices.sharedPreferences
-          //     .setString("username", response['data']['users_name']);
-          // myServices.sharedPreferences
-          //     .setString("email", response['data']['users_email']);
-          // myServices.sharedPreferences
-          //     .setString("phone", response['data']['users_phone']);
+        if (response['status']=="success") {
+          // data.addAll(response['data']);
+          myServices.sharedPreferences
+              .setString("id", response['data']['users_id']);
+          myServices.sharedPreferences
+              .setString("username", response['data']['users_name']);
+          myServices.sharedPreferences
+              .setString("email", response['data']['users_email']);
+          myServices.sharedPreferences
+              .setString("phone", response['data']['users_phone']);
           myServices.sharedPreferences.setString("step", "2");
           Get.offNamed(AppRoute.homepage);
         } else {
@@ -72,6 +72,7 @@ class LoginControllerImp extends LoginController {
   void onInit() {
     FirebaseMessaging.instance.getToken().then((value) {
       print(value);
+
       String? token = value;
     });
     email = TextEditingController();

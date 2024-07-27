@@ -1,30 +1,30 @@
-
 import 'package:ecommerces_app/core/class/statusrequest.dart';
+import 'package:ecommerces_app/core/constant/routes.dart';
 import 'package:ecommerces_app/core/services/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../core/functions/handingdatacontroller.dart';
-import '../data/datasource/remote/forgetpassword/home_data.dart';
+import '../data/datasource/remote/home_data.dart';
 
 abstract class HomeController extends GetxController {
   initialData();
   getdata();
-  goToItems(List categories, int selectedCat, String categoryid);
+  gotoMyFavroite();
+  gotoItems(List categories, int selectedCat, String categoryid);
 }
 
 class HomeControllerImp extends HomeController {
   MyServices myServices = Get.find();
-
+  bool issearch = false;
   String? username;
   String? id;
   String? lang;
-
   HomeData homedata = HomeData(Get.find());
-
-   List data = [];
+  TextEditingController? search;
+  List data = [];
   List categories = [];
   List items = [];
-
 
   late StatusRequest statusRequest;
 
@@ -37,6 +37,7 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() {
+    search = TextEditingController();
     getdata();
     initialData();
     super.onInit();
@@ -60,11 +61,30 @@ class HomeControllerImp extends HomeController {
   }
 
   @override
-  goToItems(categories, selectedCat, categoryid) {
-    // Get.toNamed(AppRoute.items, arguments: {
-    //   "categories": categories,
-    //   "selectedcat": selectedCat,
-    //   "catid": categoryid
-    // });
+  gotoItems(categories, selectedCat, categoryid) {
+    Get.toNamed(AppRoute.itemspage, arguments: {
+      "categories": categories,
+      "selectedcat": selectedCat,
+      "catid": categoryid
+    });
+  }
+
+  checkSearch(val) {
+    if (val == "") {
+      issearch = false;
+    }
+    update();
+  }
+
+  onsearchitems() {
+    issearch = true;
+    update();
+  }
+  
+  @override
+  gotoMyFavroite() {
+  Get.toNamed(AppRoute.myfavroite);
   }
 }
+
+

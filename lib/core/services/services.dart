@@ -11,12 +11,12 @@ class MyServices extends GetxService {
 //v20.14.0
 //13.13.2
   Future<MyServices> init() async {
-   await Firebase.initializeApp(
-     options: DefaultFirebaseOptions.currentPlatform,
-   );
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     sharedPreferences = await SharedPreferences.getInstance();
     return this;
-  } 
+  }
 }
 
 initialServices() async {

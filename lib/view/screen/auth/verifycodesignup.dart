@@ -47,6 +47,18 @@ class VerifyCodeSignUp extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
+              InkWell(
+                onTap: () {
+                 // controllerImp.resendCode();
+                },
+                child: Text(
+                  'Resend Code',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: AppColor.primaryColor),
+                ),
+              )
             ],
                    ),
                  ),
