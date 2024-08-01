@@ -7,13 +7,14 @@ class Customappbar extends StatelessWidget {
     required this.onPressedsearch,
     required this.onPressedIconfa,
     required this.onChangedSearch,
-    required this.onPressedIconnotif,
+    required this.onPressedIconnotif, required this.mycontroller,
   }) : super(key: key);
   final String title;
   final void Function()? onPressedIconnotif;
   final void Function()? onPressedsearch;
   final void Function()? onPressedIconfa;
   final void Function(String)? onChangedSearch;
+  final TextEditingController mycontroller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,6 +23,7 @@ class Customappbar extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
+              controller: mycontroller,
               onChanged: onChangedSearch,
               decoration: InputDecoration(
                 prefixIcon: IconButton(
@@ -42,7 +44,7 @@ class Customappbar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-           Container(
+          Container(
             width: 60,
             padding: const EdgeInsets.symmetric(vertical: 5),
             decoration: BoxDecoration(
@@ -58,7 +60,7 @@ class Customappbar extends StatelessWidget {
               ),
             ),
           ),
-            const SizedBox(width: 10),
+          const SizedBox(width: 10),
           Container(
             width: 60,
             padding: const EdgeInsets.symmetric(vertical: 5),

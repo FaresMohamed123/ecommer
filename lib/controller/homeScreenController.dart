@@ -1,8 +1,7 @@
+import 'package:ecommerces_app/view/screen/cart.dart';
 import 'package:ecommerces_app/view/screen/page/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../view/screen/cart.dart';
 import '../view/screen/page/settingPage.dart';
 
 abstract class Homescreencontroller extends GetxController {
@@ -15,7 +14,7 @@ class HomescreencontrollerImp extends Homescreencontroller {
   List<Widget> listpage = [
     const HomePage(),
     const SettingPage(),
-    const Cart(),
+    const Cart(),//cart
     const HomePage(),
     const SettingPage(),
   ];

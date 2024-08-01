@@ -1,4 +1,3 @@
-import 'package:ecommerces_app/view/screen/MyFavroite.dart';
 import 'package:ecommerces_app/view/screen/homeScreen.dart';
 
 import '/core/middleware/mymiddleware.dart';
@@ -19,7 +18,7 @@ import 'view/screen/auth/login.dart';
 import 'view/screen/auth/signup.dart';
 import 'view/screen/language.dart';
 import 'view/screen/onboarding.dart';
-import 'view/screen/itemspage.dart';
+import 'view/screen/items.dart';
 import 'view/screen/productdetallis.dart';
 
 List<GetPage<dynamic>>? getPagess = [
@@ -41,9 +40,9 @@ List<GetPage<dynamic>>? getPagess = [
       name: AppRoute.verfiyCodeSignUp, page: () => const VerifyCodeSignUp()),
   GetPage(name: AppRoute.homepage, page: () => const HomePage()),
   GetPage(name: AppRoute.testView, page: () => const TestView()),
-  GetPage(name: AppRoute.itemspage, page: () => const Items()),
+  GetPage(name: AppRoute.items, page: () => const Items()),
   GetPage(name: AppRoute.homescreen, page: () => const HomeScreen()),
-  GetPage(name: AppRoute.productdetallis, page: () => const Productdetallis()),
+  GetPage(name: AppRoute.productdetallis, page: () => const ProductDetails()),
   GetPage(name: AppRoute.cart, page: () => const Cart()),
-    GetPage(name: AppRoute.myfavroite, page: () => const MyFavroite()),
+    //GetPage(name: AppRoute.myfavroite, page: () => const MyFavroite()),
 ];

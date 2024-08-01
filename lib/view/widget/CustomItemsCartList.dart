@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerces_app/linkapi.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constant/color.dart';
@@ -28,8 +29,9 @@ class CustomItemsCartList extends StatelessWidget {
             Expanded(
                 flex: 2,
                 child: CachedNetworkImage(
-                  imageUrl: image,
-                  fit: BoxFit.cover,
+                  imageUrl: '${AppLink.imagestItems}/$image',
+                
+                  height: 80,
                 )),
             Expanded(
               flex: 3,

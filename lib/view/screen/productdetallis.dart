@@ -1,58 +1,91 @@
 import 'package:ecommerces_app/core/class/handlingdataview.dart';
-import 'package:ecommerces_app/core/constant/color.dart';
+import 'package:ecommerces_app/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controller/productDetaliscontroller.dart';
-import '../widget/productdetalis/CustomImages.dart';
-import '../widget/productdetalis/custombuttomnavigationBar.dart';
-import '../widget/productdetalis/customlistgenerate.dart';
-import '../widget/productdetalis/priceandcount.dart';
 
-class Productdetallis extends GetView<ProductdetaliscontrollerImp> {
-  const Productdetallis({super.key});
+import '../../controller/productDetaliscontroller.dart';
+import '../../core/constant/color.dart';
+import '../widget/productdetalis/priceandcount.dart';
+import '../widget/productdetalis/subitemslist.dart';
+import '../widget/productdetalis/toppageproductdetails.dart';
+
+class ProductDetails extends StatelessWidget {
+  const ProductDetails({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    Get.put(ProductdetaliscontrollerImp());
+    ProductDetailsControllerImp controller =
+        Get.put(ProductDetailsControllerImp());
     return Scaffold(
-      bottomNavigationBar: const CustomButtomNavigationBar(),
-      body: GetBuilder<ProductdetaliscontrollerImp>(
-        builder: (controller) {
+        bottomNavigationBar: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            height: 40,
+            child: MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: AppColor.secoundColor,
+                onPressed: () {
+                  
+                  Get.toNamed(AppRoute.cart);
+                },
+                child: const Text(
+                  "Add To Cart",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ))),
+        body: GetBuilder<ProductDetailsControllerImp>(builder: (controller) {
           return HandlingDataView(
             statusRequest: controller.statusRequest,
-            widget: Container(
-              child: ListView(
-                children: [
-                  const CustomImages(),
-                  const SizedBox(height: 100),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${controller.itemsModel.itemsName}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(color: AppColor.black)),
-                        const PricesAndCount(),
-                        Text("${controller.itemsModel.itemsDesc}",
-                            style: Theme.of(context).textTheme.bodyLarge!.copyWith()),
-                        const SizedBox(height: 10),
-                        Text('Color',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(color:AppColor.black)),
-                        CustomListgenerate(controller: controller)
-                      ],
-                    ),
-                  ),
-                ],
+            widget: ListView(children: [
+              const TopProductPageDetails(),
+              const SizedBox(
+                height: 100,
               ),
-            ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${controller.itemsModel.itemsName}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                color: AppColor.fourthColor,
+                              )),
+                      const SizedBox(height: 10),
+                      PriceAndCountItems(
+                          onAdd: () {
+                            controller.add();
+                          },
+                          onRemove: () {
+                            controller.remove();
+                          },
+                          price: controller.itemsModel.itemsPrice!,
+                          count: '${controller.countItems}'),
+                      const SizedBox(height: 10),
+                      Text("${controller.itemsModel.itemsDesc}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                  color: AppColor.grey2)),
+                      const SizedBox(height: 10),
+                      Text("Color",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                color: AppColor.fourthColor,
+                              )),
+                      const SizedBox(height: 10),
+                      const SubitemsList()
+                    ]),
+              )
+            ]),
           );
-        }
-      ),
-    );
+        }));
   }
 }

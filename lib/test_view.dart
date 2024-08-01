@@ -98,18 +98,28 @@ class TestView extends StatelessWidget {
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: SvgPicture.network(
-                                    '${AppLink.imagestCategories}/${controller.categories[index]['categories_image']}'),
+                              InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: SvgPicture.network(
+                                        '${AppLink.imagestCategories}/${controller.categories[index]['categories_image']}'),
+                                  ),
+                                ),
                               ),
-                              Text(controller.categories[index]
-                                  ['categories_name']),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Text(controller.categories[index]
+                              //       ['categories_name']),
+                              // ),
                             ],
                           );
                         },
                       )),
+                      const SizedBox(height: 30),
                       SizedBox(
                         height: 200,
                         child: ListView.builder(

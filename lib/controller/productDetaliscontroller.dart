@@ -1,59 +1,111 @@
 import 'package:ecommerces_app/controller/cart_controller.dart';
-import 'package:ecommerces_app/core/constant/routes.dart';
-import 'package:ecommerces_app/data/model/itemsModel.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/class/statusrequest.dart';
+import '../core/functions/handingdatacontroller.dart';
+import '../core/services/services.dart';
+import '../data/datasource/remote/cartdata.dart';
+import '../data/model/itemsModel.dart';
 
-abstract class Productdetaliscontroller extends GetxController {
-  gotoCart();
-}
+abstract class ProductDetailsController extends GetxController {}
 
-class ProductdetaliscontrollerImp extends Productdetaliscontroller {
-  late ItemsModel itemsModel;
-
-  int countitems = 0; // تغيير countitems إلى int
+class ProductDetailsControllerImp extends ProductDetailsController {
+ // CartController cartController = Get.put(CartController());
   late StatusRequest statusRequest;
-  late CartController cartController = Get.put(CartController());
-  List<String> title = [
-    'Red',
-    'Black',
-    'Blue',
-  ];
+  CartData cartData = CartData(Get.find());
 
+  MyServices myServices = Get.find();
+  int countItems = 0;
+  late ItemsModel itemsModel;
   intialData() async {
-
-    itemsModel = Get.arguments['itemsModel'];
     statusRequest = StatusRequest.loading;
-    countitems = int.parse(await cartController
-        .getCountItems(itemsModel.itemsId.toString())); // تحويل القيمة إلى int
+    itemsModel = Get.arguments['itemsmodel'];
+    countItems = await getCountItems(itemsModel.itemsId!);
     statusRequest = StatusRequest.success;
     update();
-  } 
+  }
 
+  List subitems = [
+    {"name": "red", "id": 1, "active": '0'},
+    {"name": "yallow", "id": 2, "active": '0'},
+    {"name": "black", "id": 3, "active": '1'}
+  ];
+  
+  getCountItems(String itemsid) async {
+    statusRequest = StatusRequest.loading;
+    var response = await cartData.getCountCart(
+        myServices.sharedPreferences.getString("id").toString(), itemsid);
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == "success") {
+        int countItems = 0;
+        countItems = int.parse(response['data'].toString());
+        print('====================================getCountItems $countItems');
+        return countItems;
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+  }
+  additems(String itemsid) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await cartData.addCart(
+        myServices.sharedPreferences.getString("id").toString(), itemsid);
+    print("=============================== Controlleradd $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == "success") {
+        Get.rawSnackbar(
+            title: "اشعار",
+            messageText: const Text("تم اضافة المنتج الى السلة "));
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+
+    update();
+  }
+
+  removeitems(String itemsid) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await cartData.deleteCart(
+        myServices.sharedPreferences.getString("id").toString(), itemsid);
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == "success") {
+        Get.rawSnackbar(
+            title: "اشعار",
+            messageText: const Text("تم ازالة المنتج من السلة "));
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
+  }
   add() {
-    cartController.add(itemsModel.itemsId!);
-    countitems++; // زيادة القيمة كعدد صحيح
-    update(); // تحديث واجهة المستخدم بعد زيادة القيمة
+   
+  
+    additems(itemsModel.itemsId!);
+      countItems++;
+    update();
   }
 
   remove() {
-    if (countitems > 0) {
-      cartController.delete(itemsModel.itemsId!);
-      countitems--;
-      update();
+    if (countItems > 0) {
+     
+      removeitems(itemsModel.itemsId!);
+       countItems--;
     }
+    update();
   }
-
-  @override
-  gotoCart() {
-    Get.toNamed(AppRoute.cart);
-  }
-
   @override
   void onInit() {
     intialData();
-
     super.onInit();
   }
 }

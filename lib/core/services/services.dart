@@ -15,6 +15,9 @@ class MyServices extends GetxService {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('usersid', '89');
+    sharedPreferences.setString('id', '89');
+   // sharedPreferences.setString('itemsid', '1');
     return this;
   }
 }

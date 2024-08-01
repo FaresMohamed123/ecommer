@@ -5,13 +5,13 @@ class ItemsModel {
   String? itemsDesc;
   String? itemsDescAr;
   String? itemsImage;
-  int? itemsCount;
-  int? itemsActive;
-  int? itemsPrice;
-  int? itemsDiscount;
+  String? itemsCount;
+  String? itemsActive;
+  String? itemsPrice;
+  String? itemsDiscount;
   String? itemsDate;
-  int? itemsCat;
-  int? categoriesId;
+  String? itemsCat;
+  String? categoriesId;
   String? categoriesName;
   String? categoriesNamaAr;
   String? categoriesImage;
@@ -45,13 +45,13 @@ class ItemsModel {
     itemsDesc = json['items_desc'];
     itemsDescAr = json['items_desc_ar'];
     itemsImage = json['items_image'];
-    itemsCount = json['items_count'];
-    itemsActive = json['items_active'];
-    itemsPrice = json['items_price'];
-    itemsDiscount = json['items_discount'];
+    itemsCount = json['items_count'].toString();
+    itemsActive = json['items_active'].toString();
+    itemsPrice = json['items_price'].toString();
+    itemsDiscount = json['items_discount'].toString();
     itemsDate = json['items_date'];
-    itemsCat = json['items_cat'];
-    categoriesId = json['categories_id'];
+    itemsCat = json['items_cat'].toString();
+    categoriesId = json['categories_id'].toString();
     categoriesName = json['categories_name'];
     categoriesNamaAr = json['categories_nama_ar'];
     categoriesImage = json['categories_image'];
@@ -78,7 +78,6 @@ class ItemsModel {
     data['categories_nama_ar'] = categoriesNamaAr;
     data['categories_image'] = categoriesImage;
     data['categories_datetime'] = categoriesDatetime;
-    //data['favorite'] = favorite;
     return data;
   }
 }

@@ -1,33 +1,25 @@
-import 'package:ecommerces_app/core/class/statusrequest.dart';
-import 'package:ecommerces_app/core/constant/routes.dart';
-import 'package:ecommerces_app/core/services/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../core/class/statusrequest.dart';
+import '../core/constant/routes.dart';
 import '../core/functions/handingdatacontroller.dart';
+import '../core/services/services.dart';
 import '../data/datasource/remote/home_data.dart';
+import '../data/model/itemsModel.dart';
 
-abstract class HomeController extends GetxController {
+abstract class HomeController extends SearchMixController {
   initialData();
   getdata();
-  gotoMyFavroite();
-  gotoItems(List categories, int selectedCat, String categoryid);
+  goToItems(List categories, int selectedCat, String categoryid);
 }
 
 class HomeControllerImp extends HomeController {
   MyServices myServices = Get.find();
-  bool issearch = false;
+  List categories = [];
+  List items = [];
   String? username;
   String? id;
   String? lang;
-  HomeData homedata = HomeData(Get.find());
-  TextEditingController? search;
-  List data = [];
-  List categories = [];
-  List items = [];
-
-  late StatusRequest statusRequest;
-
   @override
   initialData() {
     lang = myServices.sharedPreferences.getString("lang");
@@ -43,6 +35,9 @@ class HomeControllerImp extends HomeController {
     super.onInit();
   }
 
+ 
+ 
+
   @override
   getdata() async {
     statusRequest = StatusRequest.loading;
@@ -51,8 +46,8 @@ class HomeControllerImp extends HomeController {
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
-        categories.addAll(response['categories']);
-        items.addAll(response['items']);
+        categories.addAll(response['categories']['data']);
+        items.addAll(response['items']['data']);
       } else {
         statusRequest = StatusRequest.failure;
       }
@@ -60,31 +55,60 @@ class HomeControllerImp extends HomeController {
     update();
   }
 
+   
+  goToPageProductDetails(itemsModel) {
+    Get.toNamed(AppRoute.productdetallis, arguments: {"itemsmodel": itemsModel});
+  }
+
   @override
-  gotoItems(categories, selectedCat, categoryid) {
-    Get.toNamed(AppRoute.itemspage, arguments: {
+  goToItems(categories, selectedCat, categoryid) {
+    Get.toNamed(AppRoute.items, arguments: {
       "categories": categories,
       "selectedcat": selectedCat,
       "catid": categoryid
     });
   }
+}
 
-  checkSearch(val) {
-    if (val == "") {
-      issearch = false;
+
+/////search
+
+class SearchMixController extends GetxController {
+  List<ItemsModel> listdata = [];
+
+  late StatusRequest statusRequest;
+  HomeData homedata = HomeData(Get.find());
+
+  searchData() async {
+    statusRequest = StatusRequest.loading;
+    var response = await homedata.searchData(search!.text);
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == "success") {
+        listdata.clear();
+        List responsedata = response['data'];
+        listdata.addAll(responsedata.map((e) => ItemsModel.fromJson(e)));
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
     }
     update();
   }
 
-  onsearchitems() {
-    issearch = true;
+  bool isSearch = false;
+  TextEditingController? search;
+  checkSearch(val) {
+    if (val == "") {
+      statusRequest = StatusRequest.none;
+      isSearch = false;
+    }
     update();
   }
-  
-  @override
-  gotoMyFavroite() {
-  Get.toNamed(AppRoute.myfavroite);
+
+  onSearchItems() {
+    isSearch = true;
+    searchData();
+    update();
   }
 }
-
-
