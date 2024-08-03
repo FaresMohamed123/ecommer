@@ -30,6 +30,12 @@
 @import flutter_credit_card;
 #endif
 
+#if __has_include(<google_maps_flutter_ios/FLTGoogleMapsPlugin.h>)
+#import <google_maps_flutter_ios/FLTGoogleMapsPlugin.h>
+#else
+@import google_maps_flutter_ios;
+#endif
+
 #if __has_include(<image_pickers/ImagePickersPlugin.h>)
 #import <image_pickers/ImagePickersPlugin.h>
 #else
@@ -67,6 +73,7 @@
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
   [FlutterCreditCardPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterCreditCardPlugin"]];
+  [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];
   [ImagePickersPlugin registerWithRegistrar:[registry registrarForPlugin:@"ImagePickersPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];

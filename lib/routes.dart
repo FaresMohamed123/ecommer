@@ -1,3 +1,7 @@
+import 'package:ecommerces_app/view/address/add.dart';
+import 'package:ecommerces_app/view/address/adddetails.dart';
+import 'package:ecommerces_app/view/address/edit.dart';
+import 'package:ecommerces_app/view/address/view.dart';
 import 'package:ecommerces_app/view/screen/homeScreen.dart';
 
 import '/core/middleware/mymiddleware.dart';
@@ -44,5 +48,8 @@ List<GetPage<dynamic>>? getPagess = [
   GetPage(name: AppRoute.homescreen, page: () => const HomeScreen()),
   GetPage(name: AppRoute.productdetallis, page: () => const ProductDetails()),
   GetPage(name: AppRoute.cart, page: () => const Cart()),
-    //GetPage(name: AppRoute.myfavroite, page: () => const MyFavroite()),
+    GetPage(name: AppRoute.addressAdd, page: () => const AddressAdd()),
+    GetPage(name: AppRoute.addressAddDetails, page: () => const AddressAddDetails()),
+    GetPage(name: AppRoute.addressEdit, page: () => const AddressEdit()),
+     GetPage(name: AppRoute.addressView, page: () => const AddressView()),
 ];

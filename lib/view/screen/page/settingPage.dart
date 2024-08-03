@@ -1,4 +1,5 @@
 import 'package:ecommerces_app/core/constant/color.dart';
+import 'package:ecommerces_app/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,8 @@ class SettingPage extends StatelessWidget {
                 clipBehavior: Clip.none,
                 alignment: Alignment.center,
                 children: [
-                  Container(height: Get.width / 3, color: AppColor.primaryColor),
+                  Container(
+                      height: Get.width / 3, color: AppColor.primaryColor),
                   Positioned(
                     top: Get.width / 4.2,
                     child: Container(
@@ -50,16 +52,20 @@ class SettingPage extends StatelessWidget {
                       title: Text('Profile'),
                     ),
                     const Divider(),
-                     ListTile( 
-                      trailing: Switch(value: true, onChanged: (value) {
-                        
-                      },),
+                    ListTile(
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
                       title: const Text('Disable Notifications'),
                     ),
                     const Divider(),
-                    const ListTile(
-                      trailing: Icon(Icons.location_on_outlined),
-                      title: Text('Address'),
+                    ListTile(
+                      trailing: const Icon(Icons.location_on_outlined),
+                      onTap: () {
+                        Get.toNamed(AppRoute.addressView);
+                      },
+                      title: const Text('Address'),
                     ),
                     const Divider(),
                     const ListTile(

@@ -21,7 +21,7 @@ class Cart extends StatelessWidget {
           total: '000',
         );
       }),
-      appBar: CustomAppBarCart(),
+      appBar: CustomAppBarCart('My ','Cart'),
       body: GetBuilder<CartController>(builder: (cartController) {
         return HandlingDataView(
           statusRequest: cartController.statusRequest,
@@ -36,7 +36,7 @@ class Cart extends StatelessWidget {
                       (index) => CustomItemsCartList(
                         count: '${cartController.data[index].countitems}',
                         name: '${cartController.data[index].itemsName}',
-                        price: '${cartController.data[index].itemsPrice}',
+                        price: '${cartController.data[index].itemsprice}',
                         image: '${cartController.data[index].itemsImage}',
                         onPressedAdd: ()async {
                        

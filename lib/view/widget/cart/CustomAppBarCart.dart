@@ -3,18 +3,18 @@
 
 import '../../../core/constant/color.dart';
 
-AppBar CustomAppBarCart() {
+AppBar CustomAppBarCart(String title ,String suptitle) {
     return AppBar(
-      title: const Row(
+      title:  Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "My ",
-            style: TextStyle(fontSize: 25, color: AppColor.grey),
+            title,
+            style: const TextStyle(fontSize: 25, color: AppColor.grey),
           ),
           Text(
-            "Cart",
-            style: TextStyle(fontSize: 25, color: AppColor.primaryColor),
+           suptitle,
+            style: const TextStyle(fontSize: 25, color: AppColor.primaryColor),
           ),
         ],
       ),

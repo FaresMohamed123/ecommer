@@ -1,7 +1,5 @@
-import 'package:ecommerces_app/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../core/class/statusrequest.dart';
 import '../core/functions/handingdatacontroller.dart';
 import '../core/services/services.dart';
@@ -11,7 +9,6 @@ import '../data/model/itemsModel.dart';
 abstract class ProductDetailsController extends GetxController {}
 
 class ProductDetailsControllerImp extends ProductDetailsController {
- // CartController cartController = Get.put(CartController());
   late StatusRequest statusRequest;
   CartData cartData = CartData(Get.find());
 
